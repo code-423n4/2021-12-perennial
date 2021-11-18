@@ -45,16 +45,6 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 
 # Contest prep
 
-## 🐺 C4: Contest prep
-- [X] Rename this repo to reflect contest date (if applicable)
-- [X] Rename contest H1 below
-- [X] Add link to report form in contest details below
-- [ ] Update pot sizes
-- [X] Fill in start and end times in contest bullets below.
-- [ ] Move any relevant information in "contest scope information" above to the bottom of this readme.
-- [ ] Add matching info to the [code423n4.com public contest data here](https://github.com/code-423n4/code423n4.com/blob/main/_data/contests/contests.csv))
-- [ ] Delete this checklist.
-
 ## ⭐️ Sponsor: Contest prep
 - [ ] Make sure your code is thoroughly commented using the [NatSpec format](https://docs.soliditylang.org/en/v0.5.10/natspec-format.html#natspec-format).
 - [ ] Modify the bottom of this `README.md` file to describe how your code is supposed to work with links to any relevent documentation and any other criteria/details that the C4 Wardens should keep in mind when reviewing. ([Here's a well-constructed example.](https://github.com/code-423n4/2021-06-gro/blob/main/README.md))
@@ -72,7 +62,7 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 - $47,500 main award pot
 - $2,500 gas optimization award pot
 - Join [C4 Discord](https://discord.gg/code4rena) to register
-- Submit findings [using the C4 form](https://coderena.com/contests/2021-11-perennial-contest/submit)
+- Submit findings [using the C4 form](https://coderena.com/contests/2021-11-perennial-finance-contest/submit)
 - [Read our guidelines for more details](https://docs.code4rena.com/roles/wardens)
 - Starts November 25, 2021 00:00 UTC
 - Ends December 1, 2021 23:59 UTC
