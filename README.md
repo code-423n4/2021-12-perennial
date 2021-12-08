@@ -1,63 +1,3 @@
-# ✨ So you want to sponsor a contest
-
-This `README.md` contains a set of checklists for our contest collaboration.
-
-Your contest will use two repos: 
-- **a _contest_ repo** (this one), which is used for scoping your contest and for providing information to contestants (wardens)
-- **a _findings_ repo**, where issues are submitted. 
-
-Ultimately, when we launch the contest, this contest repo will be made public and will contain the smart contracts to be reviewed and all the information needed for contest participants. The findings repo will be made public after the contest is over and your team has mitigated the identified issues.
-
-Some of the checklists in this doc are for **C4 (🐺)** and some of them are for **you as the contest sponsor (⭐️)**.
-
----
-
-# Contest setup
-
-## ⭐️ Sponsor: Provide contest details
-
-Under "SPONSORS ADD INFO HERE" heading below, include the following:
-
-- [ ] Name of each contract and:
-  - [ ] lines of code in each
-  - [ ] external contracts called in each
-  - [ ] libraries used in each
-- [ ] Describe any novel or unique curve logic or mathematical models implemented in the contracts
-- [ ] Does the token conform to the ERC-20 standard? In what specific ways does it differ?
-- [ ] Describe anything else that adds any special logic that makes your approach unique
-- [ ] Identify any areas of specific concern in reviewing the code
-- [ ] Add all of the code to this repo that you want reviewed
-- [ ] Create a PR to this repo with the above changes.
-
----
-
-# ⭐️ Sponsor: Provide marketing details
-
-- [ ] Your logo (URL or add file to this repo - SVG or other vector format preferred)
-- [ ] Your primary Twitter handle
-- [ ] Any other Twitter handles we can/should tag in (e.g. organizers' personal accounts, etc.)
-- [ ] Your Discord URI
-- [ ] Your website
-- [ ] Optional: Do you have any quirks, recurring themes, iconic tweets, community "secret handshake" stuff we could work in? How do your people recognize each other, for example? 
-- [ ] Optional: your logo in Discord emoji format
-
----
-
-# Contest prep
-
-## ⭐️ Sponsor: Contest prep
-- [ ] Make sure your code is thoroughly commented using the [NatSpec format](https://docs.soliditylang.org/en/v0.5.10/natspec-format.html#natspec-format).
-- [ ] Modify the bottom of this `README.md` file to describe how your code is supposed to work with links to any relevent documentation and any other criteria/details that the C4 Wardens should keep in mind when reviewing. ([Here's a well-constructed example.](https://github.com/code-423n4/2021-06-gro/blob/main/README.md))
-- [ ] Please have final versions of contracts and documentation added/updated in this repo **no less than 8 hours prior to contest start time.**
-- [ ] Ensure that you have access to the _findings_ repo where issues will be submitted.
-- [ ] Promote the contest on Twitter (optional: tag in relevant protocols, etc.)
-- [ ] Share it with your own communities (blog, Discord, Telegram, email newsletters, etc.)
-- [ ] Optional: pre-record a high-level overview of your protocol (not just specific smart contract functions). This saves wardens a lot of time wading through documentation.
-- [ ] Designate someone (or a team of people) to monitor DMs & questions in the C4 Discord (**#questions** channel) daily (Note: please *don't* discuss issues submitted by wardens in an open channel, as this could give hints to other wardens.)
-- [ ] Delete this checklist and all text above the line below when you're ready.
-
----
-
 # Perennial contest details
 - $47,500 main award pot
 - $2,500 gas optimization award pot
@@ -69,4 +9,106 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 
 This repo will be made public before the start of the contest. (C4 delete this line when made public)
 
-[ ⭐️ SPONSORS ADD INFO HERE ]
+---
+
+# Perennial Overview
+
+Perennial is a new cash-settled perpetual synthetics protocol. It allows developers to launch any synthetic market with just a few lines of code.
+
+Perennial creates two-party markets where takers receive exposure to a defined payoff, while makers take the opposing side of the trade while also providing liquidity. P&L is determined directly via oracle price with zero slippage, with settlement lag introduced to counter game-ability. Maker-taker utilization is balanced using a floating funding rate.
+
+## Full documentation
+
+Documentation on the Perennial protocol architecture and mechanism can be found on our [Gitbook](https://docs.perennial.finance/).
+
+## Setup
+
+See the `protocol` folder and [README](https://github.com/code-423n4/2021-12-perennial/blob/main/protocol/README.md) for details on running and testing Perennial.
+
+---
+
+# Contracts In Scope
+
+| **Contract** | **LoC** |
+| --- | --- |
+| `/collateral/Collateral.sol` | `109` |
+| `/collateral/types/OptimisticLedger.sol` | `36` |
+| `/factory/Factory.sol` | `123` |
+| `/factory/UFactoryProvider.sol` | `49` |
+| `/incentivizer/Incentivizer.sol` | `190` |
+| `/incentivizer/types/Program.sol` | `67` |
+| `/incentivizer/types/ProgramInfo.sol` | `49` |
+| `/oracle/ChainlinkOracle.sol` | `46` |
+| `/product/Product.sol` | `194` |
+| `/product/ProductProviderBase.sol` | `22` |
+| `/product/types/ProductProvider.sol` | `16` |
+| `/product/types/accumulator/AccountAccumulator.sol` | `22` |
+| `/product/types/accumulator/Accumulator.sol` | `21` |
+| `/product/types/accumulator/VersionedAccumulator.sol` | `86` |
+| `/product/types/position/AccountPosition.sol` | `43` |
+| `/product/types/position/Position.sol` | `53` |
+| `/product/types/position/PrePosition.sol` | `75` |
+| `/product/types/position/VersionedPosition.sol` | `21` |
+| `/utils/types/Fixed18.sol` | `81` |
+| `/utils/types/Token18.sol` | `72` |
+| `/utils/types/UFixed18.sol` | `67` |
+| `/utils/unstructured/UOwnable.sol` | `36` |
+| `/utils/unstructured/UReentrancyGuard.sol` | `28` |
+| **Total** | `1506` |
+
+Most contracts use the latest version of the standard [Open Zeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts)  libraries.
+
+### Out Of Scope Contracts
+These contracts may be useful for context, but are explicitly out of scope for the contest:
+
+- `/examples/*.sol`
+- `/interfaces/*.sol`
+- `/utils/mocks/*.sol`
+
+## External Dependencies
+
+### Chainlink Oracles
+Perennial currently uses Chainlink oracles for the underlying product price feeds.
+
+The main entry point for these is `ChainlinkOracle.sol` which normalizes the feeds into the Perennial `IOracle` format.
+
+One `ChainlinkOracle` is deployed per feed, but multiple Perennial products can use the same underlying `ChainlinkOracle`.
+
+### (Trusted) ERC20 Stablecoin
+
+A single trusted ERC20 stablecoin will be used as collateral for the system.
+
+---
+
+# Primary Risks
+
+### Loss or misattribution of collateral
+
+Lost or stolen collateral is the largest risk for the Perennial protocol.
+
+- One product gaining access to another's collateral
+  - Products should have segregated collateral account, one product being insolvent should not affect another.
+- Collateral being able to be stolen globally by a bug. 
+- Contracts: `Product`, `Collateral`, and their libraries (especially `OptimisticLedger`, and settlement flows).
+
+### Loss or misattribution of incentive rewards
+
+Not as mission-critical at launch, but lost or stolen incentive rewards would be similarly high-risk.
+
+- One program gaining access to another's rewards
+- Rewards being able to be stolen globally by a bug.
+- Contracts: `Product`, `Incentivizer`, and their libraries (especially settlement flows).
+
+### Misc. erroneous accounting
+- P&L wrongly accounted for
+- Liquidation triggered incorrectly
+- Fee charged incorrectly
+- Issues with reading the oracle
+
+---
+
+# Connect
+
+- `qlo#3347` or `kbrizzle#5338` on discord from the Perennial team.
+- [Website](https://www.perennial.finance)
+- [Twitter](https://www.twitter.com/perennial_fi)
