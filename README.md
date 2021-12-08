@@ -7,8 +7,6 @@
 - Starts December 9, 2021 00:00 UTC
 - Ends December 15, 2021 23:59 UTC
 
-This repo will be made public before the start of the contest. (C4 delete this line when made public)
-
 ---
 
 # Perennial Overview
